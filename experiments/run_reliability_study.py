@@ -122,6 +122,9 @@ class ReliabilityStudy:
         # Calculate final metrics
         final_metrics = self._calculate_final_metrics(aggregated_results)
         
+        # Calculate cross-language analysis
+        cross_language_analysis = self._analyze_cross_language_performance()
+        
         self.metadata["end_time"] = datetime.now().isoformat()
         
         # Save complete results
@@ -130,6 +133,7 @@ class ReliabilityStudy:
             "results_by_language": self.results,
             "aggregated_results": aggregated_results,
             "final_metrics": final_metrics,
+            "cross_language_analysis": cross_language_analysis,
             "judge_comparison": self._create_judge_comparison()
         }
         
@@ -388,6 +392,85 @@ class ReliabilityStudy:
         
         return metrics
     
+    def _analyze_cross_language_performance(self) -> Dict[str, Any]:
+        """Analyze accuracy differences across language pairs."""
+        
+        cross_lang_analysis = {
+            "accuracy_by_language": {},
+            "consistency_by_language": {},
+            "error_detection_by_language": {},
+            "judge_language_rankings": {},
+            "language_difficulty_ranking": {},
+            "statistical_significance": {}
+        }
+        
+        # Extract accuracy by language for each judge
+        for judge_name in self.judges.keys():
+            cross_lang_analysis["accuracy_by_language"][judge_name] = {}
+            cross_lang_analysis["consistency_by_language"][judge_name] = {}
+            cross_lang_analysis["error_detection_by_language"][judge_name] = {}
+            
+            for lang_pair, lang_results in self.results.items():
+                if judge_name in lang_results.get("accuracy_scores", {}):
+                    acc_score = lang_results["accuracy_scores"][judge_name].get("overall", 0.0)
+                    cross_lang_analysis["accuracy_by_language"][judge_name][lang_pair] = acc_score
+                
+                if judge_name in lang_results.get("consistency_scores", {}):
+                    cons_score = lang_results["consistency_scores"][judge_name].get("overall", 0.0)
+                    cross_lang_analysis["consistency_by_language"][judge_name][lang_pair] = cons_score
+                
+                if judge_name in lang_results.get("error_detection", {}):
+                    error_rates = [
+                        ed.get("detection_rate", 0.0) 
+                        for ed in lang_results["error_detection"][judge_name].values()
+                    ]
+                    avg_error_detection = sum(error_rates) / len(error_rates) if error_rates else 0.0
+                    cross_lang_analysis["error_detection_by_language"][judge_name][lang_pair] = avg_error_detection
+        
+        # Calculate language difficulty ranking (average across all judges)
+        lang_difficulty = {}
+        for lang_pair in self.results.keys():
+            lang_accuracies = []
+            for judge_name in self.judges.keys():
+                if lang_pair in cross_lang_analysis["accuracy_by_language"].get(judge_name, {}):
+                    lang_accuracies.append(cross_lang_analysis["accuracy_by_language"][judge_name][lang_pair])
+            
+            if lang_accuracies:
+                lang_difficulty[lang_pair] = {
+                    "average_accuracy": sum(lang_accuracies) / len(lang_accuracies),
+                    "min_accuracy": min(lang_accuracies),
+                    "max_accuracy": max(lang_accuracies),
+                    "accuracy_variance": sum((x - sum(lang_accuracies)/len(lang_accuracies))**2 for x in lang_accuracies) / len(lang_accuracies)
+                }
+        
+        # Rank languages by difficulty (lower accuracy = more difficult)
+        sorted_langs = sorted(lang_difficulty.items(), key=lambda x: x[1]["average_accuracy"])
+        cross_lang_analysis["language_difficulty_ranking"] = {
+            lang: {
+                "rank": i + 1,
+                "average_accuracy": data["average_accuracy"],
+                "difficulty_level": "Easy" if data["average_accuracy"] > 0.8 else "Medium" if data["average_accuracy"] > 0.6 else "Hard"
+            }
+            for i, (lang, data) in enumerate(sorted_langs)
+        }
+        
+        # Judge performance ranking by language
+        for lang_pair in self.results.keys():
+            judge_scores = []
+            for judge_name in self.judges.keys():
+                if lang_pair in cross_lang_analysis["accuracy_by_language"].get(judge_name, {}):
+                    score = cross_lang_analysis["accuracy_by_language"][judge_name][lang_pair]
+                    judge_scores.append((judge_name, score))
+            
+            # Sort by accuracy (highest first)
+            judge_scores.sort(key=lambda x: x[1], reverse=True)
+            cross_lang_analysis["judge_language_rankings"][lang_pair] = [
+                {"judge": judge, "accuracy": score, "rank": i + 1}
+                for i, (judge, score) in enumerate(judge_scores)
+            ]
+        
+        return cross_lang_analysis
+    
     def _create_judge_comparison(self) -> Dict[str, Any]:
         """Create comprehensive judge comparison table."""
         
@@ -476,18 +559,44 @@ class ReliabilityStudy:
             if "aggregated_results" in results:
                 agg = results["aggregated_results"]
                 
-                summary_data.append({
+                row = {
                     "judge": judge_name,
                     "accuracy": agg["overall_accuracy"].get(judge_name, {}).get("mean", 0),
                     "consistency": agg["overall_consistency"].get(judge_name, {}).get("mean", 0),
                     "error_detection": agg["overall_error_detection"].get(judge_name, {}).get("mean", 0),
                     "total_cost": agg["cost_analysis"].get(judge_name, {}).get("estimated_cost", 0),
                     "total_tokens": agg["cost_analysis"].get(judge_name, {}).get("total_tokens", 0)
-                })
+                }
+                
+                # Add per-language accuracy if available
+                if "cross_language_analysis" in results:
+                    cross_lang = results["cross_language_analysis"]
+                    if judge_name in cross_lang.get("accuracy_by_language", {}):
+                        for lang_pair, accuracy in cross_lang["accuracy_by_language"][judge_name].items():
+                            row[f"accuracy_{lang_pair}"] = accuracy
+                
+                summary_data.append(row)
         
         df = pd.DataFrame(summary_data)
         csv_filepath = os.path.join(self.output_dir, f"summary_{timestamp}.csv")
         df.to_csv(csv_filepath, index=False)
+        
+        # Also save language-specific analysis
+        if "cross_language_analysis" in results:
+            cross_lang = results["cross_language_analysis"]
+            if "language_difficulty_ranking" in cross_lang:
+                lang_data = []
+                for lang, data in cross_lang["language_difficulty_ranking"].items():
+                    lang_data.append({
+                        "language_pair": lang,
+                        "rank": data["rank"],
+                        "average_accuracy": data["average_accuracy"],
+                        "difficulty_level": data["difficulty_level"]
+                    })
+                
+                lang_df = pd.DataFrame(lang_data)
+                lang_csv_filepath = os.path.join(self.output_dir, f"language_analysis_{timestamp}.csv")
+                lang_df.to_csv(lang_csv_filepath, index=False)
 
 
 def main():
@@ -526,6 +635,28 @@ def main():
             print("   Judge Performance Ranking:")
             for i, (judge_name, score) in enumerate(sorted_judges, 1):
                 print(f"   {i}. {judge_name.replace('_', ' ').title()}: {score:.3f}")
+        
+        # Display cross-language analysis
+        if "cross_language_analysis" in results:
+            cross_lang = results["cross_language_analysis"]
+            
+            print("\n🌍 Cross-Language Analysis:")
+            
+            # Language difficulty ranking
+            if "language_difficulty_ranking" in cross_lang:
+                print("   Language Difficulty Ranking:")
+                for lang, data in cross_lang["language_difficulty_ranking"].items():
+                    print(f"   {data['rank']}. {lang.upper()}: {data['average_accuracy']:.1%} ({data['difficulty_level']})")
+            
+            # Judge performance by language
+            if "judge_language_rankings" in cross_lang:
+                print("\n   Best Judge by Language:")
+                for lang, rankings in cross_lang["judge_language_rankings"].items():
+                    if rankings:
+                        best_judge = rankings[0]
+                        print(f"   {lang.upper()}: {best_judge['judge'].replace('_', ' ').title()} ({best_judge['accuracy']:.1%})")
+        
+        print(f"\n📁 Detailed results saved to: {study.output_dir}")
         
     except Exception as e:
         print(f"\n❌ Study failed with error: {e}")

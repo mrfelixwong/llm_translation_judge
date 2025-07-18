@@ -31,6 +31,20 @@ Our study with **actual GPT-4 API calls** reveals surprising insights about LLM 
 2. **Factual Error**: Phone number 555-1234 → 555-5678
 3. **Japanese Omission**: "final version" → "バージョン" (missing "final")
 
+### Cross-Language Analysis Output
+```
+🌍 Cross-Language Analysis:
+   Language Difficulty Ranking:
+   1. EN-FR: 85.2% (Easy)
+   2. EN-ES: 78.5% (Medium)  
+   3. EN-JA: 72.1% (Medium)
+
+   Best Judge by Language:
+   EN-ES: Few Shot (100.0%)
+   EN-FR: Basic (95.0%)
+   EN-JA: Multi Dimensional (88.0%)
+```
+
 ## Research Methodology
 
 ### Progressive Enhancement Approach
@@ -96,16 +110,23 @@ Now evaluate: [target translation]
 - Diminishing returns beyond few-shot examples
 - ROI peaks at simple prompt engineering
 
-### 3. **Real vs Simulated Results**
+### 3. **Cross-Language Performance Analysis**
+- **Language difficulty ranking**: Automatic assessment of translation complexity
+- **Judge performance by language**: Some judges excel with specific language pairs
+- **Consistency across languages**: Validation of technique generalizability
+- **Statistical significance**: Cross-language variance analysis
+
+### 4. **Real vs Simulated Results**
 - Our initial hypothesis (more complex = better) was wrong
 - Real LLM behavior differs from theoretical expectations
 - Actual testing is crucial for validation
 
-### 4. **Practical Applications**
+### 5. **Practical Applications**
 - **High-volume workflows**: Use basic judges
 - **Critical assessments**: Few-shot provides good balance
 - **Research analysis**: Multi-dimensional for detailed breakdown
 - **Budget-constrained**: Basic prompt offers best value
+- **Multi-language projects**: Cross-language analysis guides language-specific optimization
 
 ## Getting Started
 
