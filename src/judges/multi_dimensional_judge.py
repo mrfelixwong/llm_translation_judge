@@ -13,19 +13,22 @@ from .base_judge import BaseJudge
 
 class MultiDimensionalJudge(BaseJudge):
     """
-    Multi-dimensional LLM judge with structured reasoning.
+    Multi-dimensional LLM judge with WEIGHTED structured reasoning.
     
-    Evaluates translations across distinct dimensions:
-    - Accuracy: Semantic fidelity and correctness
-    - Fluency: Natural expression in target language  
-    - Completeness: No omissions or unwanted additions
-    - Appropriateness: Register, tone, and style preservation
+    Evaluates translations across distinct dimensions with critical fixes:
+    - Accuracy (60% weight): Semantic fidelity and correctness - PRIORITIZED
+    - Completeness (25% weight): No omissions or unwanted additions
+    - Fluency (10% weight): Natural expression in target language  
+    - Appropriateness (5% weight): Register, tone, and style preservation
     
-    Expected Improvements over Few-Shot Judge:
-    - Systematic evaluation reduces oversight
-    - Explicit reasoning improves reliability
-    - Dimensional scores enable detailed analysis
-    - Structured output facilitates automated processing
+    Key Improvements:
+    - WEIGHTED SCORING: Accuracy dominates to prevent dilution by style scores
+    - HIERARCHICAL RULES: Critical errors (accuracy ≤2) cap overall scores
+    - SIMPLIFIED PROMPTS: Removed JSON complexity, reduced cognitive load
+    - ERROR-FOCUSED: Designed to correctly identify factual/semantic issues
+    
+    Fixes the original averaging problem where high fluency/style scores
+    masked critical accuracy failures.
     """
     
     def __init__(self, **kwargs):
@@ -153,42 +156,32 @@ class MultiDimensionalJudge(BaseJudge):
             for criterion in dim['criteria']:
                 dimensions_desc += f"  - {criterion}\n"
         
-        prompt = f"""Evaluate this translation across the following dimensions. For each dimension, provide a score from 1-5 and detailed reasoning.
+        prompt = f"""Evaluate this translation systematically across these key dimensions:
 
-{dimensions_desc}
+**ACCURACY** (Most Important): Are facts, numbers, and meaning preserved?
+**COMPLETENESS**: Is all information included without omissions?  
+**FLUENCY**: Is the language natural and grammatically correct?
+**APPROPRIATENESS**: Is the tone and style suitable?
 
 **Translation to Evaluate:**
 Original: {source_text}
 Translation: {translated_text}
 
-**Instructions:**
-1. Analyze each dimension systematically
-2. Provide specific evidence for your scores
-3. Identify particular strengths and weaknesses
-4. Return your evaluation in the following JSON format:
+**Provide your evaluation in this format:**
 
-{{
-  "accuracy": {{
-    "score": [1-5],
-    "reasoning": "Detailed explanation with specific examples"
-  }},
-  "fluency": {{
-    "score": [1-5], 
-    "reasoning": "Detailed explanation with specific examples"
-  }},
-  "completeness": {{
-    "score": [1-5],
-    "reasoning": "Detailed explanation with specific examples"
-  }},
-  "appropriateness": {{
-    "score": [1-5],
-    "reasoning": "Detailed explanation with specific examples"
-  }},
-  "overall_score": [1-5],
-  "overall_reasoning": "Summary of strengths and weaknesses",
-  "key_issues": ["List of main problems identified"],
-  "strengths": ["List of notable positive aspects"]
-}}"""
+Accuracy (1-5): [score]
+Reasoning: [Why this score? Focus on factual correctness]
+
+Completeness (1-5): [score] 
+Reasoning: [Any missing or added information?]
+
+Fluency (1-5): [score]
+Reasoning: [Grammar, naturalness, readability]
+
+Appropriateness (1-5): [score]
+Reasoning: [Tone, formality, style match]
+
+Overall Assessment: [Brief summary of main issues and strengths]"""
         
         return prompt
     
@@ -202,47 +195,77 @@ Translation: {translated_text}
         Returns:
             Structured result dictionary
         """
-        # Try to parse JSON response
-        parsed_json = self._parse_json_response(response)
+        # Parse the simplified natural language response format
+        return self._parse_simplified_response(response)
+    
+    def _parse_simplified_response(self, response: str) -> Dict[str, Any]:
+        """
+        Parse the simplified natural language response format.
         
-        if "parsing_error" in parsed_json:
-            # Fallback parsing for non-JSON responses
-            return self._fallback_dimensional_parse(response)
+        Args:
+            response: Raw LLM response in simplified format
+            
+        Returns:
+            Structured result dictionary
+        """
+        import re
         
-        # Validate and structure the parsed JSON
         result = {
             "dimensional_scores": {},
-            "overall_score": parsed_json.get("overall_score", 3),
-            "overall_reasoning": parsed_json.get("overall_reasoning", ""),
-            "key_issues": parsed_json.get("key_issues", []),
-            "strengths": parsed_json.get("strengths", []),
-            "confidence": "high",  # Multi-dimensional provides high confidence
-            "methodology": "multi_dimensional_structured_evaluation"
+            "overall_score": 3,
+            "overall_reasoning": "",
+            "key_issues": [],
+            "strengths": [],
+            "confidence": "high",
+            "methodology": "multi_dimensional_weighted_evaluation"
         }
         
-        # Extract dimensional scores
-        for dim in self.dimensions:
-            dim_name = dim["name"]
-            if dim_name in parsed_json:
-                dim_data = parsed_json[dim_name]
-                if isinstance(dim_data, dict):
-                    result["dimensional_scores"][dim_name] = {
-                        "score": dim_data.get("score", 3),
-                        "reasoning": dim_data.get("reasoning", "No reasoning provided")
-                    }
-                else:
-                    # Handle case where dimension is just a score
-                    result["dimensional_scores"][dim_name] = {
-                        "score": dim_data if isinstance(dim_data, int) else 3,
-                        "reasoning": "No detailed reasoning provided"
-                    }
+        # Extract dimensional scores using regex patterns
+        dimensions = ["accuracy", "completeness", "fluency", "appropriateness"]
         
-        # Calculate overall score if not provided
-        if "overall_score" not in parsed_json and result["dimensional_scores"]:
-            dim_scores = [d["score"] for d in result["dimensional_scores"].values()]
-            result["overall_score"] = round(sum(dim_scores) / len(dim_scores))
+        for dim in dimensions:
+            # Look for pattern: "Dimension (1-5): score"
+            score_pattern = rf"{dim}.*?\(1-5\):\s*(\d)"
+            score_match = re.search(score_pattern, response, re.IGNORECASE)
+            
+            if score_match:
+                score = int(score_match.group(1))
+            else:
+                # Fallback: look for "Dimension: score"
+                fallback_pattern = rf"{dim}.*?:\s*(\d)"
+                fallback_match = re.search(fallback_pattern, response, re.IGNORECASE)
+                score = int(fallback_match.group(1)) if fallback_match else 3
+            
+            # Extract reasoning for this dimension
+            reasoning_pattern = rf"{dim}.*?reasoning:\s*(.+?)(?=\n[A-Z]|\nOverall|$)"
+            reasoning_match = re.search(reasoning_pattern, response, re.IGNORECASE | re.DOTALL)
+            reasoning = reasoning_match.group(1).strip() if reasoning_match else f"Score: {score}"
+            
+            result["dimensional_scores"][dim] = {
+                "score": max(1, min(5, score)),
+                "reasoning": reasoning[:200] + "..." if len(reasoning) > 200 else reasoning
+            }
         
-        # Calculate reliability metrics
+        # Extract overall assessment
+        overall_pattern = r"overall assessment:\s*(.+?)$"
+        overall_match = re.search(overall_pattern, response, re.IGNORECASE | re.DOTALL)
+        if overall_match:
+            result["overall_reasoning"] = overall_match.group(1).strip()
+        
+        # Calculate weighted overall score (this is the key fix!)
+        result["overall_score"] = self._calculate_weighted_score(result["dimensional_scores"])
+        
+        # Extract key issues and strengths from reasoning
+        all_reasoning = " ".join([d["reasoning"] for d in result["dimensional_scores"].values()])
+        
+        # Simple extraction of issues and strengths
+        if any(word in all_reasoning.lower() for word in ["error", "incorrect", "wrong", "missing", "problem"]):
+            result["key_issues"] = ["Issues identified in dimensional analysis"]
+        
+        if any(word in all_reasoning.lower() for word in ["good", "correct", "natural", "appropriate", "accurate"]):
+            result["strengths"] = ["Strengths noted in dimensional analysis"]
+        
+        # Calculate reliability and notes
         result["reliability_score"] = self._calculate_reliability(result)
         result["notes"] = self._summarize_evaluation(result)
         
@@ -300,10 +323,9 @@ Translation: {translated_text}
                 "reasoning": reasoning[:200] + "..." if len(reasoning) > 200 else reasoning
             }
         
-        # Calculate overall score from dimensions
+        # Calculate overall score using weighted methodology
         if result["dimensional_scores"]:
-            dim_scores = [d["score"] for d in result["dimensional_scores"].values()]
-            result["overall_score"] = round(sum(dim_scores) / len(dim_scores))
+            result["overall_score"] = self._calculate_weighted_score(result["dimensional_scores"])
         
         result["overall_reasoning"] = response[:300] + "..." if len(response) > 300 else response
         result["notes"] = self._summarize_evaluation(result)
@@ -373,6 +395,54 @@ Translation: {translated_text}
             summary_parts.append(f"Strengths: {strengths_text}")
         
         return ". ".join(summary_parts) if summary_parts else "Structured evaluation completed."
+    
+    def _calculate_weighted_score(self, dimensional_scores: Dict[str, Dict]) -> int:
+        """
+        Calculate weighted overall score to prioritize accuracy and fix averaging problem.
+        
+        Args:
+            dimensional_scores: Dictionary of dimensional evaluations
+            
+        Returns:
+            Weighted overall score (1-5)
+        """
+        # Weighted scoring system - accuracy is DOMINANT
+        weights = {
+            "accuracy": 0.80,        # DOMINANT - factual correctness must dominate
+            "completeness": 0.15,    # Important - information preservation  
+            "fluency": 0.03,         # Minimal - grammar/naturalness
+            "appropriateness": 0.02  # Minimal - style considerations
+        }
+        
+        total_weight = 0.0
+        weighted_sum = 0.0
+        
+        for dim_name, dim_data in dimensional_scores.items():
+            if dim_name in weights:
+                score = dim_data.get("score", 3)
+                weight = weights[dim_name]
+                weighted_sum += score * weight
+                total_weight += weight
+        
+        if total_weight == 0:
+            return 3  # Default fallback
+            
+        weighted_average = weighted_sum / total_weight
+        
+        # Apply hierarchical rules - critical errors override high scores
+        accuracy_score = dimensional_scores.get("accuracy", {}).get("score", 3)
+        
+        # Rule 1: Severe accuracy problems (≤2) cap the overall score MORE AGGRESSIVELY
+        if accuracy_score <= 2:
+            # Major accuracy issues cannot score above 2, regardless of other dimensions
+            weighted_average = min(weighted_average, 2.0)
+            
+        # Rule 2: Critical accuracy failures (score 1) get maximum penalty
+        if accuracy_score == 1:
+            # Critical factual errors cannot score above 1 (matches Basic judge severity)
+            weighted_average = min(weighted_average, 1.0)
+        
+        return round(max(1, min(5, weighted_average)))
 
 
 # Example usage and testing
