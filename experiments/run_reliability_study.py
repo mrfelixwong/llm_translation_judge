@@ -91,7 +91,7 @@ class ReliabilityStudy:
         self.metadata["start_time"] = datetime.now().isoformat()
         
         if language_pairs is None:
-            language_pairs = ["en-es", "en-fr"]  # Default test pairs
+            language_pairs = ["en-es", "en-fr", "en-ja"]  # Default test pairs
         
         self.metadata["language_pairs"] = language_pairs
         self.metadata["test_cases"] = test_size * len(language_pairs)
@@ -492,7 +492,7 @@ class ReliabilityStudy:
 
 def main():
     parser = argparse.ArgumentParser(description='Run LLM Judge Reliability Study')
-    parser.add_argument('--languages', type=str, default='en-es,en-fr',
+    parser.add_argument('--languages', type=str, default='en-es,en-fr,en-ja',
                        help='Comma-separated language pairs to test')
     parser.add_argument('--test_size', type=int, default=50,
                        help='Number of test cases per language pair')

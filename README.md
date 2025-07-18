@@ -21,7 +21,7 @@ Our study with **actual GPT-4 API calls** reveals surprising insights about LLM 
 
 ### Test Configuration
 - **Total Evaluations**: 16 real GPT-4 calls
-- **Language Pairs**: English→Spanish, English→French  
+- **Language Pairs**: English→Spanish, English→French, English→Japanese
 - **Test Cases**: Mistranslations and factual errors
 - **Duration**: ~3 minutes
 - **Total Cost**: $0.35
@@ -29,6 +29,7 @@ Our study with **actual GPT-4 API calls** reveals surprising insights about LLM 
 ### Sample Test Cases
 1. **Mistranslation**: "confidential" → "público" (public)
 2. **Factual Error**: Phone number 555-1234 → 555-5678
+3. **Japanese Omission**: "final version" → "バージョン" (missing "final")
 
 ## Research Methodology
 
@@ -153,9 +154,9 @@ Results are saved to `results/` directory with timestamps.
 
 | Experiment Size | Estimated Cost | Duration |
 |----------------|----------------|----------|
-| Small (10 cases) | $2-5 | 5-10 min |
-| Medium (25 cases) | $8-20 | 15-30 min |
-| Full (50 cases) | $25-60 | 45-90 min |
+| Small (10 cases × 3 languages) | $3-8 | 8-15 min |
+| Medium (25 cases × 3 languages) | $12-30 | 25-45 min |
+| Full (50 cases × 3 languages) | $40-90 | 60-120 min |
 
 ## Research Impact
 

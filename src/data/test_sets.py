@@ -117,6 +117,36 @@ def generate_synthetic_test_set(language_pair: str, size: int = 50) -> List[Dict
                 ("Enable notifications.", "Désactiver les notifications."),  # Enable -> disable
                 ("Increase the volume.", "Diminuer le volume.")  # Increase -> decrease
             ]
+        },
+        "en-ja": {
+            "good": [
+                ("Good morning, everyone.", "皆さん、おはようございます。"),
+                ("Please review the attached document.", "添付された資料をご確認ください。"),
+                ("We appreciate your feedback.", "ご意見をいただき、ありがとうございます。"),
+                ("The deadline is next Tuesday.", "締切は来週の火曜日です。"),
+                ("Thank you for your patience.", "お待ちいただき、ありがとうございます。")
+            ],
+            "factual_error": [
+                ("The appointment is at 10 AM.", "予約は午後2時です。"),  # Wrong time (10 AM -> 2 PM)
+                ("The building is on 5th Street.", "建物は8番街にあります。"),  # Wrong street (5th -> 8th)
+                ("The cost is 100 dollars.", "費用は200ドルです。"),  # Wrong amount (100 -> 200)
+                ("Room number 15.", "部屋番号は25です。"),  # Wrong number (15 -> 25)
+                ("Due on January 15th.", "1月20日が期限です。")  # Wrong date (15th -> 20th)
+            ],
+            "omission": [
+                ("Please send the final version.", "バージョンを送ってください。"),  # Missing "final"
+                ("Call me after 6 PM today.", "今日、電話してください。"),  # Missing time
+                ("The red folder on my desk.", "私の机の上のフォルダ。"),  # Missing "red"
+                ("Urgent: Review immediately.", "すぐに確認してください。"),  # Missing "Urgent"
+                ("Confidential and sensitive information.", "機密情報。")  # Missing "sensitive"
+            ],
+            "mistranslation": [
+                ("The door is open.", "ドアが閉まっています。"),  # Open -> closed
+                ("Accept the invitation.", "招待を断る。"),  # Accept -> refuse
+                ("Save the changes.", "変更を削除する。"),  # Save -> delete
+                ("Enable notifications.", "通知を無効にする。"),  # Enable -> disable
+                ("Increase the volume.", "音量を下げる。")  # Increase -> decrease
+            ]
         }
     }
     
@@ -227,7 +257,7 @@ def get_available_language_pairs() -> List[str]:
     Returns:
         List of language pair codes
     """
-    return ["en-es", "en-fr", "en-de", "en-it", "en-pt"]
+    return ["en-es", "en-fr", "en-ja", "en-de", "en-it", "en-pt"]
 
 
 # Generate and save test sets if run directly
