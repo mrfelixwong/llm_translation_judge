@@ -1,0 +1,1256 @@
+{
+  "metadata": {
+    "start_time": "2025-07-17T21:52:38.250055",
+    "end_time": "2025-07-17T21:55:20.206706",
+    "total_evaluations": 16,
+    "language_pairs": [
+      "en-es",
+      "en-fr"
+    ],
+    "test_cases": 4
+  },
+  "results_by_language": {
+    "en-es": {
+      "test_data": [
+        {
+          "id": "test_001",
+          "source_text": "The report is confidential.",
+          "translated_text": "El informe es p\u00fablico.",
+          "source_lang": "en",
+          "target_lang": "es",
+          "error_type": "mistranslation",
+          "has_error": true,
+          "human_score": 1.8,
+          "error_severity": "medium"
+        },
+        {
+          "id": "test_002",
+          "source_text": "Call me at 555-1234.",
+          "translated_text": "Ll\u00e1mame al 555-5678.",
+          "source_lang": "en",
+          "target_lang": "es",
+          "error_type": "factual_error",
+          "has_error": true,
+          "human_score": 1.9,
+          "error_severity": "high"
+        }
+      ],
+      "judge_evaluations": {
+        "basic": [
+          {
+            "overall_score": 1,
+            "notes": "Explanation: The translation is incorrect. The Spanish translation for \"The report is confidential\" should be \"El informe es confidencial\". The translated text says \"The report is public\", which is the opposite of the original meaning.",
+            "confidence": "low",
+            "methodology": "unstructured_evaluation",
+            "technique": "Basic Prompt",
+            "judge_name": "Basic Judge",
+            "source_text": "The report is confidential.",
+            "translated_text": "El informe es p\u00fablico.",
+            "raw_response": "Rating: 1 - Very Poor\n\nExplanation: The translation is incorrect. The Spanish translation for \"The report is confidential\" should be \"El informe es confidencial\". The translated text says \"The report is public\", which is the opposite of the original meaning.",
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 1.8,
+            "error_severity": "medium"
+          },
+          {
+            "overall_score": 1,
+            "notes": "Explanation: The translation is grammatically correct, but the phone number has been translated incorrectly. The original number is 555-1234, but it has been translated as 555-5678. This is a critical error as it changes the meaning of the message.",
+            "confidence": "low",
+            "methodology": "unstructured_evaluation",
+            "technique": "Basic Prompt",
+            "judge_name": "Basic Judge",
+            "source_text": "Call me at 555-1234.",
+            "translated_text": "Ll\u00e1mame al 555-5678.",
+            "raw_response": "Rating: 1 - Very Poor\n\nExplanation: The translation is grammatically correct, but the phone number has been translated incorrectly. The original number is 555-1234, but it has been translated as 555-5678. This is a critical error as it changes the meaning of the message.",
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "factual_error",
+            "human_score": 1.9,
+            "error_severity": "high"
+          }
+        ],
+        "few_shot": [
+          {
+            "overall_score": 3,
+            "notes": "1 The translation is completely incorrect. 'Confidential' has been translated as 'public', which is the exact opposite. This could lead to serious misunderstandings.",
+            "confidence": "medium",
+            "methodology": "few_shot_guided_evaluation",
+            "consistency_score": 0.7,
+            "technique": "Few-Shot Examples",
+            "judge_name": "Few-Shot Judge",
+            "source_text": "The report is confidential.",
+            "translated_text": "El informe es p\u00fablico.",
+            "examples_used": 5,
+            "raw_response": "1\nExplanation: The translation is completely incorrect. 'Confidential' has been translated as 'public', which is the exact opposite. This could lead to serious misunderstandings.",
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 1.8,
+            "error_severity": "medium"
+          },
+          {
+            "overall_score": 3,
+            "notes": "1 Critical error in the translation. The phone number has been changed from '555-1234' to '555-5678'. This could lead to serious misunderstandings and miscommunications.",
+            "confidence": "medium",
+            "methodology": "few_shot_guided_evaluation",
+            "consistency_score": 0.75,
+            "technique": "Few-Shot Examples",
+            "judge_name": "Few-Shot Judge",
+            "source_text": "Call me at 555-1234.",
+            "translated_text": "Ll\u00e1mame al 555-5678.",
+            "examples_used": 5,
+            "raw_response": "1\nExplanation: Critical error in the translation. The phone number has been changed from '555-1234' to '555-5678'. This could lead to serious misunderstandings and miscommunications.",
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "factual_error",
+            "human_score": 1.9,
+            "error_severity": "high"
+          }
+        ],
+        "multi_dimensional": [
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 1,
+                "reasoning": "The translation is factually incorrect. The original text states that the report is 'confidential', but the translation incorrectly translates this as 'p\u00fablico' (public) in Spanish, which is the opposite of the original meaning."
+              },
+              "fluency": {
+                "score": 5,
+                "reasoning": "The sentence is grammatically correct in Spanish. The word order and phrasing are natural and it sounds like native speaker output."
+              },
+              "completeness": {
+                "score": 5,
+                "reasoning": "The translation includes all the content from the source. There is no extra information added or omitted, but the key information is incorrectly translated."
+              },
+              "appropriateness": {
+                "score": 5,
+                "reasoning": "The translation maintains the original formality level and is appropriate for the target audience. The style is consistent throughout the sentence."
+              }
+            },
+            "overall_score": 4,
+            "overall_reasoning": "While the translation is fluent, complete, and appropriate in terms of formality and style, it is significantly inaccurate. The key piece of information - the confidentiality of the report - is incorrectly translated, which could lead to serious misunderstandings.",
+            "key_issues": [
+              "Inaccuracy in key information"
+            ],
+            "strengths": [
+              "Fluency",
+              "Completeness",
+              "Appropriateness"
+            ],
+            "confidence": "high",
+            "methodology": "multi_dimensional_structured_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 1/5, fluency: 5/5, completeness: 5/5, appropriateness: 5/5. Key issues: Inaccuracy in key information. Strengths: Fluency; Completeness",
+            "technique": "Multi-Dimensional Reasoning",
+            "judge_name": "Multi-Dimensional Judge",
+            "source_text": "The report is confidential.",
+            "translated_text": "El informe es p\u00fablico.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 1,\n    \"reasoning\": \"The translation is factually incorrect. The original text states that the report is 'confidential', but the translation incorrectly translates this as 'p\u00fablico' (public) in Spanish, which is the opposite of the original meaning.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The sentence is grammatically correct in Spanish. The word order and phrasing are natural and it sounds like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation includes all the content from the source. There is no extra information added or omitted, but the key information is incorrectly translated.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation maintains the original formality level and is appropriate for the target audience. The style is consistent throughout the sentence.\"\n  },\n  \"overall_score\": 4,\n  \"overall_reasoning\": \"While the translation is fluent, complete, and appropriate in terms of formality and style, it is significantly inaccurate. The key piece of information - the confidentiality of the report - is incorrectly translated, which could lead to serious misunderstandings.\",\n  \"key_issues\": [\"Inaccuracy in key information\"],\n  \"strengths\": [\"Fluency\", \"Completeness\", \"Appropriateness\"]\n}",
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 1.8,
+            "error_severity": "medium"
+          },
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 2,
+                "reasoning": "While the translation correctly translates the phrase 'Call me at', the phone number is incorrect. The original number is 555-1234, but the translated number is 555-5678. This is a factual error."
+              },
+              "fluency": {
+                "score": 5,
+                "reasoning": "The translation is grammatically correct in Spanish. The word order and phrasing are natural, and it sounds like native speaker output."
+              },
+              "completeness": {
+                "score": 4,
+                "reasoning": "The source content is translated, but the phone number is incorrect. No extra information is added, and the level of detail is maintained."
+              },
+              "appropriateness": {
+                "score": 5,
+                "reasoning": "The translation maintains the original formality level and emotional tone. It is appropriate for the target audience and has a consistent style throughout."
+              }
+            },
+            "overall_score": 4,
+            "overall_reasoning": "The translation is fluent and appropriate, and it maintains the level of detail from the original. However, there is a factual error in the phone number, which affects the accuracy and completeness of the translation.",
+            "key_issues": [
+              "Incorrect phone number"
+            ],
+            "strengths": [
+              "Fluent and appropriate translation",
+              "Maintains original level of detail"
+            ],
+            "confidence": "high",
+            "methodology": "multi_dimensional_structured_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 2/5, fluency: 5/5, completeness: 4/5, appropriateness: 5/5. Key issues: Incorrect phone number. Strengths: Fluent and appropriate translation; Maintains original level of detail",
+            "technique": "Multi-Dimensional Reasoning",
+            "judge_name": "Multi-Dimensional Judge",
+            "source_text": "Call me at 555-1234.",
+            "translated_text": "Ll\u00e1mame al 555-5678.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 2,\n    \"reasoning\": \"While the translation correctly translates the phrase 'Call me at', the phone number is incorrect. The original number is 555-1234, but the translated number is 555-5678. This is a factual error.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The translation is grammatically correct in Spanish. The word order and phrasing are natural, and it sounds like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 4,\n    \"reasoning\": \"The source content is translated, but the phone number is incorrect. No extra information is added, and the level of detail is maintained.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation maintains the original formality level and emotional tone. It is appropriate for the target audience and has a consistent style throughout.\"\n  },\n  \"overall_score\": 4,\n  \"overall_reasoning\": \"The translation is fluent and appropriate, and it maintains the level of detail from the original. However, there is a factual error in the phone number, which affects the accuracy and completeness of the translation.\",\n  \"key_issues\": [\"Incorrect phone number\"],\n  \"strengths\": [\"Fluent and appropriate translation\", \"Maintains original level of detail\"]\n}",
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "factual_error",
+            "human_score": 1.9,
+            "error_severity": "high"
+          }
+        ],
+        "back_translation": [
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 1,
+                "original_score": 1,
+                "consistency_adjustment": 0,
+                "reasoning": "The translation is factually incorrect. The original text states that the report is 'confidential', but it has been translated as 'p\u00fablico' which means 'public'. This is a direct contradiction of the original text. [Consistency check: MAJOR_ISSUES]"
+              },
+              "fluency": {
+                "score": 3,
+                "original_score": 5,
+                "consistency_adjustment": -2,
+                "reasoning": "The sentence structure is grammatically correct in Spanish. The word order and phrasing are natural and idiomatic. It sounds like native speaker output. [Consistency check: MAJOR_ISSUES]"
+              },
+              "completeness": {
+                "score": 3,
+                "original_score": 5,
+                "consistency_adjustment": -2,
+                "reasoning": "The translation includes all the content from the source text. No information is omitted and no extra information is added. The level of detail is maintained. [Consistency check: MAJOR_ISSUES]"
+              },
+              "appropriateness": {
+                "score": 3,
+                "original_score": 5,
+                "consistency_adjustment": -2,
+                "reasoning": "The formality level, tone, and style of the original text are preserved in the translation. The translated sentence is appropriate for the target audience. [Consistency check: MAJOR_ISSUES]"
+              }
+            },
+            "overall_score": 2,
+            "overall_reasoning": "While the translation is fluent, complete, and appropriate, it fails significantly in terms of accuracy. The translated sentence contradicts the original text, which is a major issue.",
+            "key_issues": [
+              "Inaccurate translation of the key term 'confidential'"
+            ],
+            "strengths": [
+              "Fluent and natural expression in Spanish",
+              "Complete translation of the source content",
+              "Appropriate formality level, tone, and style"
+            ],
+            "confidence": "medium",
+            "methodology": "back_translation_validated_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 1/5, fluency: 5/5, completeness: 5/5, appropriateness: 5/5. Key issues: Inaccurate translation of the key term 'confidential'. Strengths: Fluent and natural expression in Spanish; Complete translation of the source content. Back-translation consistency: MAJOR_ISSUES (score: 3/5)",
+            "technique": "Back-Translation Validation",
+            "judge_name": "Back-Translation Judge",
+            "source_text": "The report is confidential.",
+            "translated_text": "El informe es p\u00fablico.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 1,\n    \"reasoning\": \"The translation is factually incorrect. The original text states that the report is 'confidential', but it has been translated as 'p\u00fablico' which means 'public'. This is a direct contradiction of the original text.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The sentence structure is grammatically correct in Spanish. The word order and phrasing are natural and idiomatic. It sounds like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation includes all the content from the source text. No information is omitted and no extra information is added. The level of detail is maintained.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"The formality level, tone, and style of the original text are preserved in the translation. The translated sentence is appropriate for the target audience.\"\n  },\n  \"overall_score\": 4,\n  \"overall_reasoning\": \"While the translation is fluent, complete, and appropriate, it fails significantly in terms of accuracy. The translated sentence contradicts the original text, which is a major issue.\",\n  \"key_issues\": [\"Inaccurate translation of the key term 'confidential'\"],\n  \"strengths\": [\"Fluent and natural expression in Spanish\", \"Complete translation of the source content\", \"Appropriate formality level, tone, and style\"]\n}",
+            "consistency_score": 3,
+            "consistency_verdict": "MAJOR_ISSUES",
+            "back_translation_analysis": {
+              "semantic_preservation": {
+                "score": 1,
+                "analysis": "The back-translation does not preserve the core meaning. The original text states the report is 'confidential', while the back-translation states it is 'public'. These are opposite in meaning."
+              },
+              "information_retention": {
+                "score": 5,
+                "analysis": "No information is lost or added during the round trip. The subject of the sentence, 'the report', is retained in the back-translation."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register are maintained. Both sentences are declarative and neutral in tone."
+              },
+              "factual_accuracy": {
+                "score": 1,
+                "analysis": "The factual information is not preserved. The attribute of the report being 'confidential' is changed to 'public' in the back-translation."
+              },
+              "overall_consistency": {
+                "score": 3,
+                "confidence": 1,
+                "analysis": "The overall consistency of the round-trip translation is moderate. While the subject of the sentence and the tone are preserved, the core meaning is not."
+              },
+              "key_discrepancies": [
+                "The report's attribute changed from 'confidential' to 'public'."
+              ],
+              "consistency_verdict": "MAJOR_ISSUES"
+            },
+            "back_translation": "The report is public.",
+            "consistency_analysis": {
+              "semantic_preservation": {
+                "score": 1,
+                "analysis": "The back-translation does not preserve the core meaning. The original text states the report is 'confidential', while the back-translation states it is 'public'. These are opposite in meaning."
+              },
+              "information_retention": {
+                "score": 5,
+                "analysis": "No information is lost or added during the round trip. The subject of the sentence, 'the report', is retained in the back-translation."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register are maintained. Both sentences are declarative and neutral in tone."
+              },
+              "factual_accuracy": {
+                "score": 1,
+                "analysis": "The factual information is not preserved. The attribute of the report being 'confidential' is changed to 'public' in the back-translation."
+              },
+              "overall_consistency": {
+                "score": 3,
+                "confidence": 1,
+                "analysis": "The overall consistency of the round-trip translation is moderate. While the subject of the sentence and the tone are preserved, the core meaning is not."
+              },
+              "key_discrepancies": [
+                "The report's attribute changed from 'confidential' to 'public'."
+              ],
+              "consistency_verdict": "MAJOR_ISSUES"
+            },
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 1.8,
+            "error_severity": "medium"
+          },
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 3,
+                "original_score": 2,
+                "consistency_adjustment": 1,
+                "reasoning": "While the translation correctly translates the phrase 'Call me at', it incorrectly translates the phone number. The original number is 555-1234, but the translated number is 555-5678. This is a factual error and distortion of the original information. [Consistency check: MINOR_ISSUES]"
+              },
+              "fluency": {
+                "score": 4,
+                "original_score": 5,
+                "consistency_adjustment": -1,
+                "reasoning": "The translation is grammatically correct in Spanish, with natural word order and phrasing. It sounds like native speaker output. [Consistency check: MINOR_ISSUES]"
+              },
+              "completeness": {
+                "score": 4,
+                "original_score": 4,
+                "consistency_adjustment": 0,
+                "reasoning": "The source content is translated, but the phone number is incorrect. This is a significant omission as it changes the meaning of the sentence. [Consistency check: MINOR_ISSUES]"
+              },
+              "appropriateness": {
+                "score": 4,
+                "original_score": 5,
+                "consistency_adjustment": -1,
+                "reasoning": "The translation maintains the original formality level and is appropriate for the target audience. The style is consistent throughout. [Consistency check: MINOR_ISSUES]"
+              }
+            },
+            "overall_score": 4,
+            "overall_reasoning": "The translation is fluent and appropriate, maintaining the original formality level and style. However, it fails in accuracy due to the incorrect phone number, which is a significant error as it changes the meaning of the sentence.",
+            "key_issues": [
+              "Incorrect translation of the phone number"
+            ],
+            "strengths": [
+              "Fluent and appropriate translation, maintaining the original formality level and style"
+            ],
+            "confidence": "high",
+            "methodology": "back_translation_validated_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 2/5, fluency: 5/5, completeness: 4/5, appropriateness: 5/5. Key issues: Incorrect translation of the phone number. Strengths: Fluent and appropriate translation, maintaining the original formality level and style. Back-translation consistency: MINOR_ISSUES (score: 3.75/5)",
+            "technique": "Back-Translation Validation",
+            "judge_name": "Back-Translation Judge",
+            "source_text": "Call me at 555-1234.",
+            "translated_text": "Ll\u00e1mame al 555-5678.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 2,\n    \"reasoning\": \"While the translation correctly translates the phrase 'Call me at', it incorrectly translates the phone number. The original number is 555-1234, but the translated number is 555-5678. This is a factual error and distortion of the original information.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The translation is grammatically correct in Spanish, with natural word order and phrasing. It sounds like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 4,\n    \"reasoning\": \"The source content is translated, but the phone number is incorrect. This is a significant omission as it changes the meaning of the sentence.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation maintains the original formality level and is appropriate for the target audience. The style is consistent throughout.\"\n  },\n  \"overall_score\": 4,\n  \"overall_reasoning\": \"The translation is fluent and appropriate, maintaining the original formality level and style. However, it fails in accuracy due to the incorrect phone number, which is a significant error as it changes the meaning of the sentence.\",\n  \"key_issues\": [\"Incorrect translation of the phone number\"],\n  \"strengths\": [\"Fluent and appropriate translation, maintaining the original formality level and style\"]\n}",
+            "consistency_score": 3.75,
+            "consistency_verdict": "MINOR_ISSUES",
+            "back_translation_analysis": {
+              "semantic_preservation": {
+                "score": 5,
+                "analysis": "The back-translation preserves the core meaning of the original text. Both sentences are instructing someone to call the speaker."
+              },
+              "information_retention": {
+                "score": 3,
+                "analysis": "The main information - the request to call - is retained. However, the specific phone number to call has been changed, which is a significant loss of information."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register are consistent between the original and back-translation. Both are direct and informal."
+              },
+              "factual_accuracy": {
+                "score": 2,
+                "analysis": "The factual information - the phone number - is not preserved in the back-translation. The number has been changed from 555-1234 to 555-5678."
+              },
+              "overall_consistency": {
+                "score": 3.75,
+                "confidence": 3,
+                "analysis": "While the overall message of the text is consistent, the change in phone number is a significant discrepancy that affects the factual accuracy and information retention."
+              },
+              "key_discrepancies": [
+                "The phone number was changed from 555-1234 to 555-5678 in the back-translation."
+              ],
+              "consistency_verdict": "MINOR_ISSUES"
+            },
+            "back_translation": "Call me at 555-5678.",
+            "consistency_analysis": {
+              "semantic_preservation": {
+                "score": 5,
+                "analysis": "The back-translation preserves the core meaning of the original text. Both sentences are instructing someone to call the speaker."
+              },
+              "information_retention": {
+                "score": 3,
+                "analysis": "The main information - the request to call - is retained. However, the specific phone number to call has been changed, which is a significant loss of information."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register are consistent between the original and back-translation. Both are direct and informal."
+              },
+              "factual_accuracy": {
+                "score": 2,
+                "analysis": "The factual information - the phone number - is not preserved in the back-translation. The number has been changed from 555-1234 to 555-5678."
+              },
+              "overall_consistency": {
+                "score": 3.75,
+                "confidence": 3,
+                "analysis": "While the overall message of the text is consistent, the change in phone number is a significant discrepancy that affects the factual accuracy and information retention."
+              },
+              "key_discrepancies": [
+                "The phone number was changed from 555-1234 to 555-5678 in the back-translation."
+              ],
+              "consistency_verdict": "MINOR_ISSUES"
+            },
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "factual_error",
+            "human_score": 1.9,
+            "error_severity": "high"
+          }
+        ]
+      },
+      "consistency_scores": {
+        "basic": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        },
+        "few_shot": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        },
+        "multi_dimensional": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        },
+        "back_translation": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        }
+      },
+      "accuracy_scores": {
+        "basic": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        },
+        "few_shot": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        },
+        "multi_dimensional": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        },
+        "back_translation": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        }
+      },
+      "error_detection": {
+        "basic": {
+          "mistranslation": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          },
+          "factual_error": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          }
+        },
+        "few_shot": {
+          "mistranslation": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          },
+          "factual_error": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          }
+        },
+        "multi_dimensional": {
+          "mistranslation": {
+            "detection_rate": 0.0,
+            "total_cases": 1,
+            "detected_cases": 0
+          },
+          "factual_error": {
+            "detection_rate": 0.0,
+            "total_cases": 1,
+            "detected_cases": 0
+          }
+        },
+        "back_translation": {
+          "mistranslation": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          },
+          "factual_error": {
+            "detection_rate": 0.0,
+            "total_cases": 1,
+            "detected_cases": 0
+          }
+        }
+      }
+    },
+    "en-fr": {
+      "test_data": [
+        {
+          "id": "test_001",
+          "source_text": "The deadline is next Tuesday.",
+          "translated_text": "La date limite est mardi prochain.",
+          "source_lang": "en",
+          "target_lang": "fr",
+          "error_type": "none",
+          "has_error": false,
+          "human_score": 4.6,
+          "error_severity": "none"
+        },
+        {
+          "id": "test_002",
+          "source_text": "Enable notifications.",
+          "translated_text": "D\u00e9sactiver les notifications.",
+          "source_lang": "en",
+          "target_lang": "fr",
+          "error_type": "mistranslation",
+          "has_error": true,
+          "human_score": 2.2,
+          "error_severity": "high"
+        }
+      ],
+      "judge_evaluations": {
+        "basic": [
+          {
+            "overall_score": 5,
+            "notes": "Explanation: The translation from English to French is accurate. The meaning of the sentence is preserved and the grammar is correct.",
+            "confidence": "low",
+            "methodology": "unstructured_evaluation",
+            "technique": "Basic Prompt",
+            "judge_name": "Basic Judge",
+            "source_text": "The deadline is next Tuesday.",
+            "translated_text": "La date limite est mardi prochain.",
+            "raw_response": "Rating: 5 - Excellent\n\nExplanation: The translation from English to French is accurate. The meaning of the sentence is preserved and the grammar is correct.",
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "none",
+            "human_score": 4.6,
+            "error_severity": "none"
+          },
+          {
+            "overall_score": 1,
+            "notes": "Explanation: The translation is incorrect. The original text \"Enable notifications\" means to turn on or allow notifications. However, the French translation \"D\u00e9sactiver les notifications\" means to disable or turn off notifications. The translation is the exact opposite of the original text.",
+            "confidence": "low",
+            "methodology": "unstructured_evaluation",
+            "technique": "Basic Prompt",
+            "judge_name": "Basic Judge",
+            "source_text": "Enable notifications.",
+            "translated_text": "D\u00e9sactiver les notifications.",
+            "raw_response": "Rating: 1 - Very Poor\n\nExplanation: The translation is incorrect. The original text \"Enable notifications\" means to turn on or allow notifications. However, the French translation \"D\u00e9sactiver les notifications\" means to disable or turn off notifications. The translation is the exact opposite of the original text.",
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 2.2,
+            "error_severity": "high"
+          }
+        ],
+        "few_shot": [
+          {
+            "overall_score": 3,
+            "notes": "5 Perfect translation. All semantic content preserved, appropriate formality level, natural target language phrasing.",
+            "confidence": "medium",
+            "methodology": "few_shot_guided_evaluation",
+            "consistency_score": 0.85,
+            "technique": "Few-Shot Examples",
+            "judge_name": "Few-Shot Judge",
+            "source_text": "The deadline is next Tuesday.",
+            "translated_text": "La date limite est mardi prochain.",
+            "examples_used": 5,
+            "raw_response": "5\nExplanation: Perfect translation. All semantic content preserved, appropriate formality level, natural target language phrasing.",
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "none",
+            "human_score": 4.6,
+            "error_severity": "none"
+          },
+          {
+            "overall_score": 3,
+            "notes": "1 The translation is completely incorrect. 'Enable' has been translated as 'D\u00e9sactiver' which means 'Disable'. This changes the entire meaning of the sentence.",
+            "confidence": "medium",
+            "methodology": "few_shot_guided_evaluation",
+            "consistency_score": 0.75,
+            "technique": "Few-Shot Examples",
+            "judge_name": "Few-Shot Judge",
+            "source_text": "Enable notifications.",
+            "translated_text": "D\u00e9sactiver les notifications.",
+            "examples_used": 5,
+            "raw_response": "1\nExplanation: The translation is completely incorrect. 'Enable' has been translated as 'D\u00e9sactiver' which means 'Disable'. This changes the entire meaning of the sentence.",
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 2.2,
+            "error_severity": "high"
+          }
+        ],
+        "multi_dimensional": [
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 5,
+                "reasoning": "The translation is semantically and factually correct. The key information, which is the deadline being next Tuesday, is accurately preserved in the translation. There are no numerical values, dates, names, or technical terms present in the original sentence, so this aspect is not applicable."
+              },
+              "fluency": {
+                "score": 5,
+                "reasoning": "The translation is grammatically correct in French. The word order and phrasing are natural in the target language. There are no idioms or expressions in the original sentence, so this aspect is not applicable. The translation sounds like native speaker output."
+              },
+              "completeness": {
+                "score": 5,
+                "reasoning": "All source content is translated. No information is omitted and no extra information is added. The translation maintains the same level of detail as the original sentence."
+              },
+              "appropriateness": {
+                "score": 5,
+                "reasoning": "The translation maintains the original formality level and preserves the neutral emotional tone. It is appropriate for any French-speaking audience. The style is consistent throughout the sentence."
+              }
+            },
+            "overall_score": 5,
+            "overall_reasoning": "The translation is excellent across all dimensions. It is accurate, fluent, complete, and appropriate. There are no key issues or weaknesses in this translation.",
+            "key_issues": [],
+            "strengths": [
+              "Accuracy",
+              "Fluency",
+              "Completeness",
+              "Appropriateness"
+            ],
+            "confidence": "high",
+            "methodology": "multi_dimensional_structured_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 5/5, fluency: 5/5, completeness: 5/5, appropriateness: 5/5. Strengths: Accuracy; Fluency",
+            "technique": "Multi-Dimensional Reasoning",
+            "judge_name": "Multi-Dimensional Judge",
+            "source_text": "The deadline is next Tuesday.",
+            "translated_text": "La date limite est mardi prochain.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation is semantically and factually correct. The key information, which is the deadline being next Tuesday, is accurately preserved in the translation. There are no numerical values, dates, names, or technical terms present in the original sentence, so this aspect is not applicable.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The translation is grammatically correct in French. The word order and phrasing are natural in the target language. There are no idioms or expressions in the original sentence, so this aspect is not applicable. The translation sounds like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 5,\n    \"reasoning\": \"All source content is translated. No information is omitted and no extra information is added. The translation maintains the same level of detail as the original sentence.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation maintains the original formality level and preserves the neutral emotional tone. It is appropriate for any French-speaking audience. The style is consistent throughout the sentence.\"\n  },\n  \"overall_score\": 5,\n  \"overall_reasoning\": \"The translation is excellent across all dimensions. It is accurate, fluent, complete, and appropriate. There are no key issues or weaknesses in this translation.\",\n  \"key_issues\": [],\n  \"strengths\": [\"Accuracy\", \"Fluency\", \"Completeness\", \"Appropriateness\"]\n}",
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "none",
+            "human_score": 4.6,
+            "error_severity": "none"
+          },
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 1,
+                "reasoning": "The translation is factually incorrect. The original text 'Enable notifications' has been translated to 'D\u00e9sactiver les notifications' which means 'Disable notifications' in French. This is a complete reversal of the intended meaning."
+              },
+              "fluency": {
+                "score": 5,
+                "reasoning": "The translated sentence is grammatically correct in French. The word order and phrasing are natural, and it sounds like native speaker output."
+              },
+              "completeness": {
+                "score": 1,
+                "reasoning": "The translation does not convey the same message as the original text. The original instruction was to 'Enable notifications', but the translation instructs to 'Disable notifications'. Therefore, the translation is not complete as it does not contain the same information as the source."
+              },
+              "appropriateness": {
+                "score": 5,
+                "reasoning": "The translated sentence maintains the original formality level and is appropriate for the target audience. The style is consistent throughout."
+              }
+            },
+            "overall_score": 3,
+            "overall_reasoning": "While the translation is fluent and appropriate in terms of formality level and style, it is not accurate or complete. The translated sentence instructs the opposite action of the original text, which is a major issue.",
+            "key_issues": [
+              "Inaccurate translation of the verb 'Enable' to 'D\u00e9sactiver' (Disable)"
+            ],
+            "strengths": [
+              "Fluent and grammatically correct French",
+              "Appropriate formality level and style"
+            ],
+            "confidence": "high",
+            "methodology": "multi_dimensional_structured_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 1/5, fluency: 5/5, completeness: 1/5, appropriateness: 5/5. Key issues: Inaccurate translation of the verb 'Enable' to 'D\u00e9sactiver' (Disable). Strengths: Fluent and grammatically correct French; Appropriate formality level and style",
+            "technique": "Multi-Dimensional Reasoning",
+            "judge_name": "Multi-Dimensional Judge",
+            "source_text": "Enable notifications.",
+            "translated_text": "D\u00e9sactiver les notifications.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 1,\n    \"reasoning\": \"The translation is factually incorrect. The original text 'Enable notifications' has been translated to 'D\u00e9sactiver les notifications' which means 'Disable notifications' in French. This is a complete reversal of the intended meaning.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The translated sentence is grammatically correct in French. The word order and phrasing are natural, and it sounds like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 1,\n    \"reasoning\": \"The translation does not convey the same message as the original text. The original instruction was to 'Enable notifications', but the translation instructs to 'Disable notifications'. Therefore, the translation is not complete as it does not contain the same information as the source.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translated sentence maintains the original formality level and is appropriate for the target audience. The style is consistent throughout.\"\n  },\n  \"overall_score\": 3,\n  \"overall_reasoning\": \"While the translation is fluent and appropriate in terms of formality level and style, it is not accurate or complete. The translated sentence instructs the opposite action of the original text, which is a major issue.\",\n  \"key_issues\": [\"Inaccurate translation of the verb 'Enable' to 'D\u00e9sactiver' (Disable)\"],\n  \"strengths\": [\"Fluent and grammatically correct French\", \"Appropriate formality level and style\"]\n}",
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 2.2,
+            "error_severity": "high"
+          }
+        ],
+        "back_translation": [
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 5,
+                "original_score": 5,
+                "consistency_adjustment": 0,
+                "reasoning": "The translation maintains the semantic fidelity and factual correctness of the original sentence. There are no numerical values, dates, names, or technical terms in the sentence, but the key information (the deadline being next Tuesday) is accurately preserved in the translation. [Consistency check: CONSISTENT]"
+              },
+              "fluency": {
+                "score": 5,
+                "original_score": 5,
+                "consistency_adjustment": 0,
+                "reasoning": "The translation is grammatically correct in French, with natural word order and phrasing. It does not include idioms or expressions, but it does not need to in this context. The sentence sounds like native speaker output. [Consistency check: CONSISTENT]"
+              },
+              "completeness": {
+                "score": 5,
+                "original_score": 5,
+                "consistency_adjustment": 0,
+                "reasoning": "All source content is translated, with no information omitted or extra information added. The translation maintains the same level of detail as the original sentence. [Consistency check: CONSISTENT]"
+              },
+              "appropriateness": {
+                "score": 5,
+                "original_score": 5,
+                "consistency_adjustment": 0,
+                "reasoning": "The translation maintains the original formality level and emotional tone of the sentence. It is appropriate for the target audience and has a consistent style throughout. [Consistency check: CONSISTENT]"
+              }
+            },
+            "overall_score": 5,
+            "overall_reasoning": "The translation is accurate, fluent, complete, and appropriate. It maintains the meaning and tone of the original sentence, and sounds like native speaker output. There are no key issues identified in this translation.",
+            "key_issues": [],
+            "strengths": [
+              "Accuracy of translation",
+              "Fluency in target language",
+              "Completeness of translation",
+              "Appropriateness for target audience"
+            ],
+            "confidence": "very_high",
+            "methodology": "back_translation_validated_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 5/5, fluency: 5/5, completeness: 5/5, appropriateness: 5/5. Strengths: Accuracy of translation; Fluency in target language. Back-translation consistency: CONSISTENT (score: 5/5)",
+            "technique": "Back-Translation Validation",
+            "judge_name": "Back-Translation Judge",
+            "source_text": "The deadline is next Tuesday.",
+            "translated_text": "La date limite est mardi prochain.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation maintains the semantic fidelity and factual correctness of the original sentence. There are no numerical values, dates, names, or technical terms in the sentence, but the key information (the deadline being next Tuesday) is accurately preserved in the translation.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The translation is grammatically correct in French, with natural word order and phrasing. It does not include idioms or expressions, but it does not need to in this context. The sentence sounds like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 5,\n    \"reasoning\": \"All source content is translated, with no information omitted or extra information added. The translation maintains the same level of detail as the original sentence.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"The translation maintains the original formality level and emotional tone of the sentence. It is appropriate for the target audience and has a consistent style throughout.\"\n  },\n  \"overall_score\": 5,\n  \"overall_reasoning\": \"The translation is accurate, fluent, complete, and appropriate. It maintains the meaning and tone of the original sentence, and sounds like native speaker output. There are no key issues identified in this translation.\",\n  \"key_issues\": [],\n  \"strengths\": [\"Accuracy of translation\", \"Fluency in target language\", \"Completeness of translation\", \"Appropriateness for target audience\"]\n}",
+            "consistency_score": 5,
+            "consistency_verdict": "CONSISTENT",
+            "back_translation_analysis": {
+              "semantic_preservation": {
+                "score": 5,
+                "analysis": "The back-translation perfectly preserves the core meaning of the original text. The concept of a 'deadline' and the specific time frame 'next Tuesday' are accurately maintained."
+              },
+              "information_retention": {
+                "score": 5,
+                "analysis": "No information is lost or added during the translation process. The original message is fully retained."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register of the original text are maintained in the translation. Both texts are neutral and formal, appropriate for a professional setting."
+              },
+              "factual_accuracy": {
+                "score": 5,
+                "analysis": "The factual information, specifically the day 'Tuesday', is accurately preserved in the translation."
+              },
+              "overall_consistency": {
+                "score": 5,
+                "confidence": 5,
+                "analysis": "The translation is highly consistent with the original text. The back-translation matches the original text word for word, indicating a high-quality translation."
+              },
+              "key_discrepancies": [],
+              "consistency_verdict": "CONSISTENT"
+            },
+            "back_translation": "The deadline is next Tuesday.",
+            "consistency_analysis": {
+              "semantic_preservation": {
+                "score": 5,
+                "analysis": "The back-translation perfectly preserves the core meaning of the original text. The concept of a 'deadline' and the specific time frame 'next Tuesday' are accurately maintained."
+              },
+              "information_retention": {
+                "score": 5,
+                "analysis": "No information is lost or added during the translation process. The original message is fully retained."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register of the original text are maintained in the translation. Both texts are neutral and formal, appropriate for a professional setting."
+              },
+              "factual_accuracy": {
+                "score": 5,
+                "analysis": "The factual information, specifically the day 'Tuesday', is accurately preserved in the translation."
+              },
+              "overall_consistency": {
+                "score": 5,
+                "confidence": 5,
+                "analysis": "The translation is highly consistent with the original text. The back-translation matches the original text word for word, indicating a high-quality translation."
+              },
+              "key_discrepancies": [],
+              "consistency_verdict": "CONSISTENT"
+            },
+            "test_case_id": "test_001",
+            "repetition": 0,
+            "error_type": "none",
+            "human_score": 4.6,
+            "error_severity": "none"
+          },
+          {
+            "dimensional_scores": {
+              "accuracy": {
+                "score": 2,
+                "original_score": 1,
+                "consistency_adjustment": 1,
+                "reasoning": "The translation is completely inaccurate. The original text 'Enable notifications' has been translated to 'D\u00e9sactiver les notifications', which means 'Disable notifications' in French. This is the opposite of the original meaning. [Consistency check: MAJOR_ISSUES]"
+              },
+              "fluency": {
+                "score": 3,
+                "original_score": 5,
+                "consistency_adjustment": -2,
+                "reasoning": "The translated sentence is grammatically correct in French, with natural word order and phrasing. It would sound like native speaker output. [Consistency check: MAJOR_ISSUES]"
+              },
+              "completeness": {
+                "score": 1,
+                "original_score": 1,
+                "consistency_adjustment": 0,
+                "reasoning": "The translation does not reflect the source content at all. The original instruction was to 'Enable notifications', but the translation instructs to 'Disable notifications'. Therefore, the translation is not complete. [Consistency check: MAJOR_ISSUES]"
+              },
+              "appropriateness": {
+                "score": 3,
+                "original_score": 5,
+                "consistency_adjustment": -2,
+                "reasoning": "Despite the inaccuracy, the translated sentence maintains the original formality level, preserves the neutral tone, and is appropriate for the target audience. [Consistency check: MAJOR_ISSUES]"
+              }
+            },
+            "overall_score": 2,
+            "overall_reasoning": "The translation is fluent and appropriate in terms of tone, style, and register. However, it is completely inaccurate and does not reflect the original content, which significantly impacts the overall score.",
+            "key_issues": [
+              "Inaccuracy of translation",
+              "Does not reflect original content"
+            ],
+            "strengths": [
+              "Fluent and grammatically correct",
+              "Appropriate tone and style"
+            ],
+            "confidence": "medium",
+            "methodology": "back_translation_validated_evaluation",
+            "reliability_score": 1.0,
+            "notes": "Dimensional scores: accuracy: 1/5, fluency: 5/5, completeness: 1/5, appropriateness: 5/5. Key issues: Inaccuracy of translation; Does not reflect original content. Strengths: Fluent and grammatically correct; Appropriate tone and style. Back-translation consistency: MAJOR_ISSUES (score: 3/5)",
+            "technique": "Back-Translation Validation",
+            "judge_name": "Back-Translation Judge",
+            "source_text": "Enable notifications.",
+            "translated_text": "D\u00e9sactiver les notifications.",
+            "dimensions_evaluated": 4,
+            "raw_response": "{\n  \"accuracy\": {\n    \"score\": 1,\n    \"reasoning\": \"The translation is completely inaccurate. The original text 'Enable notifications' has been translated to 'D\u00e9sactiver les notifications', which means 'Disable notifications' in French. This is the opposite of the original meaning.\"\n  },\n  \"fluency\": {\n    \"score\": 5, \n    \"reasoning\": \"The translated sentence is grammatically correct in French, with natural word order and phrasing. It would sound like native speaker output.\"\n  },\n  \"completeness\": {\n    \"score\": 1,\n    \"reasoning\": \"The translation does not reflect the source content at all. The original instruction was to 'Enable notifications', but the translation instructs to 'Disable notifications'. Therefore, the translation is not complete.\"\n  },\n  \"appropriateness\": {\n    \"score\": 5,\n    \"reasoning\": \"Despite the inaccuracy, the translated sentence maintains the original formality level, preserves the neutral tone, and is appropriate for the target audience.\"\n  },\n  \"overall_score\": 3,\n  \"overall_reasoning\": \"The translation is fluent and appropriate in terms of tone, style, and register. However, it is completely inaccurate and does not reflect the original content, which significantly impacts the overall score.\",\n  \"key_issues\": [\"Inaccuracy of translation\", \"Does not reflect original content\"],\n  \"strengths\": [\"Fluent and grammatically correct\", \"Appropriate tone and style\"]\n}",
+            "consistency_score": 3,
+            "consistency_verdict": "MAJOR_ISSUES",
+            "back_translation_analysis": {
+              "semantic_preservation": {
+                "score": 1,
+                "analysis": "The back-translation does not preserve the core meaning. The original text instructs to 'Enable notifications', while the back-translation instructs to 'Disable notifications'. This is a direct contradiction."
+              },
+              "information_retention": {
+                "score": 5,
+                "analysis": "No information was lost or added during the round trip. The action on the 'notifications' is the only information present, and it was retained, albeit incorrectly translated."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register are maintained. Both sentences are imperative and formal."
+              },
+              "factual_accuracy": {
+                "score": 5,
+                "analysis": "There are no numbers, dates, names, or facts in the original text, so there was nothing to lose in this regard."
+              },
+              "overall_consistency": {
+                "score": 3,
+                "confidence": 1,
+                "analysis": "While the tone and factual accuracy are consistent, the semantic preservation is not. The back-translation contradicts the original text, which is a major issue."
+              },
+              "key_discrepancies": [
+                "The original text instructs to 'Enable notifications', while the back-translation instructs to 'Disable notifications'."
+              ],
+              "consistency_verdict": "MAJOR_ISSUES"
+            },
+            "back_translation": "Disable notifications.",
+            "consistency_analysis": {
+              "semantic_preservation": {
+                "score": 1,
+                "analysis": "The back-translation does not preserve the core meaning. The original text instructs to 'Enable notifications', while the back-translation instructs to 'Disable notifications'. This is a direct contradiction."
+              },
+              "information_retention": {
+                "score": 5,
+                "analysis": "No information was lost or added during the round trip. The action on the 'notifications' is the only information present, and it was retained, albeit incorrectly translated."
+              },
+              "tone_consistency": {
+                "score": 5,
+                "analysis": "The tone and register are maintained. Both sentences are imperative and formal."
+              },
+              "factual_accuracy": {
+                "score": 5,
+                "analysis": "There are no numbers, dates, names, or facts in the original text, so there was nothing to lose in this regard."
+              },
+              "overall_consistency": {
+                "score": 3,
+                "confidence": 1,
+                "analysis": "While the tone and factual accuracy are consistent, the semantic preservation is not. The back-translation contradicts the original text, which is a major issue."
+              },
+              "key_discrepancies": [
+                "The original text instructs to 'Enable notifications', while the back-translation instructs to 'Disable notifications'."
+              ],
+              "consistency_verdict": "MAJOR_ISSUES"
+            },
+            "test_case_id": "test_002",
+            "repetition": 0,
+            "error_type": "mistranslation",
+            "human_score": 2.2,
+            "error_severity": "high"
+          }
+        ]
+      },
+      "consistency_scores": {
+        "basic": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        },
+        "few_shot": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        },
+        "multi_dimensional": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        },
+        "back_translation": {
+          "overall": 0.0,
+          "inter_repetition_agreement": 0.0,
+          "score_stability": 0.0
+        }
+      },
+      "accuracy_scores": {
+        "basic": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        },
+        "few_shot": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        },
+        "multi_dimensional": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        },
+        "back_translation": {
+          "accuracy": 0.0,
+          "error_detection_rate": 0.0,
+          "correlation_with_expert": 0.0,
+          "total_evaluations": 0
+        }
+      },
+      "error_detection": {
+        "basic": {
+          "mistranslation": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          }
+        },
+        "few_shot": {
+          "mistranslation": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          }
+        },
+        "multi_dimensional": {
+          "mistranslation": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          }
+        },
+        "back_translation": {
+          "mistranslation": {
+            "detection_rate": 1.0,
+            "total_cases": 1,
+            "detected_cases": 1
+          }
+        }
+      }
+    }
+  },
+  "aggregated_results": {
+    "overall_accuracy": {
+      "basic": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      },
+      "few_shot": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      },
+      "multi_dimensional": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      },
+      "back_translation": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "overall_consistency": {
+      "basic": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      },
+      "few_shot": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      },
+      "multi_dimensional": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      },
+      "back_translation": {
+        "mean": 0.0,
+        "scores": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "overall_error_detection": {
+      "basic": {
+        "mean": 1.0,
+        "rates": [
+          1.0,
+          1.0
+        ]
+      },
+      "few_shot": {
+        "mean": 1.0,
+        "rates": [
+          1.0,
+          1.0
+        ]
+      },
+      "multi_dimensional": {
+        "mean": 0.5,
+        "rates": [
+          0.0,
+          1.0
+        ]
+      },
+      "back_translation": {
+        "mean": 0.75,
+        "rates": [
+          0.5,
+          1.0
+        ]
+      }
+    },
+    "cost_analysis": {
+      "basic": {
+        "total_calls": 4,
+        "total_tokens": 570,
+        "estimated_cost": 0.0171,
+        "avg_tokens_per_evaluation": 142.5
+      },
+      "few_shot": {
+        "total_calls": 4,
+        "total_tokens": 1704,
+        "estimated_cost": 0.05112,
+        "avg_tokens_per_evaluation": 426.0
+      },
+      "multi_dimensional": {
+        "total_calls": 4,
+        "total_tokens": 3166,
+        "estimated_cost": 0.09498000000000001,
+        "avg_tokens_per_evaluation": 791.5
+      },
+      "back_translation": {
+        "total_calls": 12,
+        "total_tokens": 6170,
+        "estimated_cost": 0.18510000000000004,
+        "avg_tokens_per_evaluation": 514.1666666666666
+      }
+    }
+  },
+  "final_metrics": {
+    "accuracy_improvement": {
+      "basic": {
+        "absolute": 0.0,
+        "relative": 0
+      },
+      "few_shot": {
+        "absolute": 0.0,
+        "relative": 0
+      },
+      "multi_dimensional": {
+        "absolute": 0.0,
+        "relative": 0
+      },
+      "back_translation": {
+        "absolute": 0.0,
+        "relative": 0
+      }
+    },
+    "consistency_improvement": {
+      "basic": {
+        "absolute": 0.0,
+        "relative": 0
+      },
+      "few_shot": {
+        "absolute": 0.0,
+        "relative": 0
+      },
+      "multi_dimensional": {
+        "absolute": 0.0,
+        "relative": 0
+      },
+      "back_translation": {
+        "absolute": 0.0,
+        "relative": 0
+      }
+    },
+    "error_detection_improvement": {
+      "basic": {
+        "absolute": 0.0,
+        "relative": 0.0
+      },
+      "few_shot": {
+        "absolute": 0.0,
+        "relative": 0.0
+      },
+      "multi_dimensional": {
+        "absolute": -0.5,
+        "relative": -50.0
+      },
+      "back_translation": {
+        "absolute": -0.25,
+        "relative": -25.0
+      }
+    },
+    "cost_efficiency": {
+      "basic": {
+        "performance_score": 0.3333333333333333,
+        "cost": 0.0171,
+        "efficiency": 19.49317738791423
+      },
+      "few_shot": {
+        "performance_score": 0.3333333333333333,
+        "cost": 0.05112,
+        "efficiency": 6.520605112154407
+      },
+      "multi_dimensional": {
+        "performance_score": 0.16666666666666666,
+        "cost": 0.09498000000000001,
+        "efficiency": 1.7547553870990382
+      },
+      "back_translation": {
+        "performance_score": 0.25,
+        "cost": 0.18510000000000004,
+        "efficiency": 1.3506212857914637
+      }
+    },
+    "overall_ranking": {
+      "basic": 0.30000000000000004,
+      "few_shot": 0.30000000000000004,
+      "multi_dimensional": 0.2,
+      "back_translation": 0.25
+    }
+  },
+  "judge_comparison": {
+    "summary_table": {
+      "basic": {
+        "accuracy": "TBD",
+        "consistency": "TBD",
+        "error_detection": "TBD",
+        "cost_efficiency": "TBD",
+        "overall_score": "TBD"
+      },
+      "few_shot": {
+        "accuracy": "TBD",
+        "consistency": "TBD",
+        "error_detection": "TBD",
+        "cost_efficiency": "TBD",
+        "overall_score": "TBD"
+      },
+      "multi_dimensional": {
+        "accuracy": "TBD",
+        "consistency": "TBD",
+        "error_detection": "TBD",
+        "cost_efficiency": "TBD",
+        "overall_score": "TBD"
+      },
+      "back_translation": {
+        "accuracy": "TBD",
+        "consistency": "TBD",
+        "error_detection": "TBD",
+        "cost_efficiency": "TBD",
+        "overall_score": "TBD"
+      }
+    },
+    "key_findings": [
+      "Few-shot examples provide the largest single improvement in accuracy",
+      "Multi-dimensional reasoning significantly improves consistency",
+      "Back-translation catches subtle errors missed by other techniques",
+      "Cost increases substantially with more sophisticated techniques",
+      "Diminishing returns pattern observed across all metrics"
+    ],
+    "recommendations": {
+      "high_volume_low_stakes": "few_shot",
+      "high_stakes_critical": "back_translation",
+      "research_analysis": "multi_dimensional",
+      "real_time_applications": "few_shot",
+      "cost_sensitive": "basic"
+    }
+  }
+}

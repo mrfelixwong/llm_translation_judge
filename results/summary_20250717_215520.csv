@@ -1,0 +1,5 @@
+judge,accuracy,consistency,error_detection,total_cost,total_tokens
+basic,0.0,0.0,1.0,0.0171,570
+few_shot,0.0,0.0,1.0,0.05112,1704
+multi_dimensional,0.0,0.0,0.5,0.09498000000000001,3166
+back_translation,0.0,0.0,0.75,0.18510000000000004,6170
