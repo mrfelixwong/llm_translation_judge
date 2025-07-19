@@ -18,7 +18,7 @@ from datetime import datetime
 import pandas as pd
 from tqdm import tqdm
 
-from src.judges import BasicJudge, FewShotJudge, MultiDimensionalJudge, BackTranslationJudge
+from src.judges import BasicJudge, FewShotJudge, MultiDimensionalJudge, MultiDimensionalJudgeOriginal, BackTranslationJudge
 from src.data.test_sets import load_test_set, get_available_language_pairs
 from src.evaluators.metrics import ReliabilityMetrics
 from src.evaluators.benchmarks import GroundTruthEvaluator
@@ -44,6 +44,7 @@ class ReliabilityStudy:
             "basic": BasicJudge(),
             "few_shot": FewShotJudge(),
             "multi_dimensional": MultiDimensionalJudge(),
+            "multi_dimensional_original": MultiDimensionalJudgeOriginal(),
             "back_translation": BackTranslationJudge()
         }
         
