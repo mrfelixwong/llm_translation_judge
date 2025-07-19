@@ -12,11 +12,11 @@ Our study with **actual GPT-4 API calls** reveals surprising insights about LLM 
 |-----------|----------------|------|----------|---------|-------------|
 | **1. Basic Prompt** | **60%** | $0.040 | 3s | 1,345 | Good for obvious errors |
 | **2. Few-Shot Examples** | **80%** | $0.115 | 2s | 3,847 | Best overall performance |
-| **3. Multi-Dimensional (Original)** | **20%** | $0.217 | 11s | 7,246 | Failed due to averaging problem |
-| **4. Multi-Dimensional (Fixed)** | **60%** | $0.217 | 11s | 7,246 | Fixed averaging but needs tuning |
-| **5. Back-Translation** | TBD | $0.417 | 25s | 13,899 | Complex validation approach |
+| **3. Multi-Dimensional (Complex)** | **20%** | $0.217 | 11s | 7,246 | Complexity != Quality |
+| **4. Multi-Dimensional (Simple)** | **60%** | $0.217 | 11s | 7,246 | Simple multi-dimension is better |
+| **5. Back-Translation** | **50%** | $0.417 | 25s | 13,899 | Good for major semantic errors |    
 
-### **Key Finding**: Few-Shot Examples achieve the best performance (80%), while fixing the averaging problem improved Multi-Dimensional from worst (20%) to competitive (60%)!
+### **Key Finding**: Few-Shot Examples achieve the best performance (80%), while multi-dimensional (simple) shows promise.
 
 ## Real Experiment Details
 
@@ -33,8 +33,8 @@ Our study with **actual GPT-4 API calls** reveals surprising insights about LLM 
 
 | Judge | Accuracy | Fluency | Completeness | Appropriateness | Simple Avg | Actual Score | Error Detected? |
 |-------|----------|---------|--------------|-----------------|------------|--------------|-----------------|
-| **Original** | 1/5 | 5/5 | 3/5 | 5/5 | **(1+5+3+5)/4 = 3.5** | **3.5/5** | ❌ **MISSED** |
-| **Fixed** | 1/5 | 5/5 | 5/5 | 1/5 | *(1+5+5+1)/4 = 3.0* | **1/5** | ✅ **DETECTED** |
+| **Complex** | 1/5 | 5/5 | 3/5 | 5/5 | **(1+5+3+5)/4 = 3.5** | **3.5/5** | ❌ **MISSED** |
+| **Simple** | 1/5 | 5/5 | 5/5 | 1/5 | *(1+5+5+1)/4 = 3.0* | **1/5** | ✅ **DETECTED** |
 
 ### Other Sample Test Cases  
 1. **Mistranslation**: "confidential" → "público" (public)
