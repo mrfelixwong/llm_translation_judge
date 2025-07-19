@@ -12,8 +12,8 @@ Our study with **actual GPT-4 API calls** reveals surprising insights about LLM 
 |-----------|----------------|------|----------|---------|-------------|
 | **1. Basic Prompt** | **100%** | $0.040 | 3s | 1,345 | Simple but effective |
 | **2. Few-Shot Examples** | **100%** | $0.115 | 2s | 3,847 | Consistently excellent |
-| **3. Multi-Dimensional (Complex)** | 0% | $0.217 | 11s | 7,246 | Failed due to averaging problem |
-| **4. Multi-Dimensional (Simple)** | **100%** | $0.217 | 11s | 7,246 | Fixed with weighted scoring |
+| **3. Multi-Dimensional (Complex)** | 0% | $0.217 | 11s | 7,246 | Complexity != Quality |
+| **4. Multi-Dimensional (Simple)** | **100%** | $0.217 | 11s | 7,246 | Simplicity wins |
 | **5. Back-Translation** | **100%** | $0.417 | 25s | 13,899 | Complex but effective |
 
 ### **Key Finding**: The averaging problem was completely fixed! Multi-Dimensional judge went from worst performer (0%) to best performer (100%) with weighted scoring!
