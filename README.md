@@ -4,7 +4,7 @@
 
 **How do progressive prompt engineering techniques improve the reliability and accuracy of LLM-based judges for translation evaluation?**
 
-## Key Findings from Real Experiments
+## Key Findings from Experiments
 
 Our study with **actual GPT-4 API calls** reveals surprising insights about LLM judge performance:
 
