@@ -10,13 +10,13 @@ Our study with **actual GPT-4 API calls** reveals surprising insights about LLM 
 
 | Technique | Error Detection | Cost | Avg Time | Tokens | Key Insight |
 |-----------|----------------|------|----------|---------|-------------|
-| **1. Basic Prompt** | **100%** | $0.040 | 3s | 1,345 | Simple but effective |
-| **2. Few-Shot Examples** | **100%** | $0.115 | 2s | 3,847 | Consistently excellent |
-| **3. Multi-Dimensional (Complex)** | 0% | $0.217 | 11s | 7,246 | Complexity != Quality |
-| **4. Multi-Dimensional (Simple)** | **100%** | $0.217 | 11s | 7,246 | Simplicity wins |
-| **5. Back-Translation** | **100%** | $0.417 | 25s | 13,899 | Complex but effective |
+| **1. Basic Prompt** | **60%** | $0.040 | 3s | 1,345 | Good for obvious errors |
+| **2. Few-Shot Examples** | **80%** | $0.115 | 2s | 3,847 | Best overall performance |
+| **3. Multi-Dimensional (Original)** | **20%** | $0.217 | 11s | 7,246 | Failed due to averaging problem |
+| **4. Multi-Dimensional (Fixed)** | **60%** | $0.217 | 11s | 7,246 | Fixed averaging but needs tuning |
+| **5. Back-Translation** | TBD | $0.417 | 25s | 13,899 | Complex validation approach |
 
-### **Key Finding**: The averaging problem was completely fixed! Multi-Dimensional judge went from worst performer (0%) to best performer (100%) with weighted scoring!
+### **Key Finding**: Few-Shot Examples achieve the best performance (80%), while fixing the averaging problem improved Multi-Dimensional from worst (20%) to competitive (60%)!
 
 ## Real Experiment Details
 
